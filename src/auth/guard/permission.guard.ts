@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Inject,
   Injectable,
 } from '@nestjs/common';
@@ -38,6 +39,9 @@ export class PermissionGuard implements CanActivate {
     const { permissions } = await this.permissionService.getPermissions(
       user.sub,
     );
-    return permissions.includes(permissionKey);
+    if (!permissions.includes(permissionKey)) {
+      throw new ForbiddenException('Permission denied');
+    }
+    return true;
   }
 }

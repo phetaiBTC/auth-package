@@ -40,7 +40,10 @@ let PermissionGuard = class PermissionGuard {
             .toLowerCase();
         const permissionKey = `${controllerName}-${handlerName}`;
         const { permissions } = await this.permissionService.getPermissions(user.sub);
-        return permissions.includes(permissionKey);
+        if (!permissions.includes(permissionKey)) {
+            throw new common_1.ForbiddenException('Permission denied');
+        }
+        return true;
     }
 };
 exports.PermissionGuard = PermissionGuard;
