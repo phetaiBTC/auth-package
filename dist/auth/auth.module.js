@@ -41,6 +41,7 @@ let AuthModule = AuthModule_1 = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = AuthModule_1 = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({})
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map
