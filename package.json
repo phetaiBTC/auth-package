@@ -1,5 +1,5 @@
 {
-  "name": "@phetaibtc/nest-auth",
+  "name": "@phetaibtc/auth-package",
   "version": "0.0.1",
   "description": "Reusable NestJS Auth Module",
   "license": "MIT",
