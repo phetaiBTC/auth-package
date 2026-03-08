@@ -35,7 +35,7 @@ let AuthModule = AuthModule_1 = class AuthModule {
                 auth_service_1.AuthService,
                 jwt_strategy_1.JwtStrategy,
             ],
-            exports: [auth_service_1.AuthService],
+            exports: [auth_service_1.AuthService, auth_constants_1.PERMISSION_SERVICE],
         };
     }
 };

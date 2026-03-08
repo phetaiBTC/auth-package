@@ -31,7 +31,7 @@ export class AuthModule {
         AuthService,
         JwtStrategy,
       ],
-      exports: [AuthService],
+      exports: [AuthService,PERMISSION_SERVICE],
     };
   }
 }
