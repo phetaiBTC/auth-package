@@ -12,6 +12,7 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const jwt_1 = require("@nestjs/jwt");
 const jwt_strategy_1 = require("./strategy/jwt.strategy");
+const auth_constants_1 = require("./constants/auth.constants");
 let AuthModule = AuthModule_1 = class AuthModule {
     static forRoot(options) {
         return {
@@ -22,7 +23,14 @@ let AuthModule = AuthModule_1 = class AuthModule {
                     signOptions: { expiresIn: '7d' },
                 }),
             ],
-            providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
+            providers: [
+                {
+                    provide: auth_constants_1.AUTH_OPTIONS,
+                    useValue: options,
+                },
+                auth_service_1.AuthService,
+                jwt_strategy_1.JwtStrategy,
+            ],
             exports: [auth_service_1.AuthService],
         };
     }

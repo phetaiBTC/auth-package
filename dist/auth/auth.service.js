@@ -23,6 +23,9 @@ let AuthService = class AuthService {
     verifyToken(token) {
         return this.jwtService.verify(token);
     }
+    generateToken(payload) {
+        return this.jwtService.sign(payload);
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

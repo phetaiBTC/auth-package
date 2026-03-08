@@ -2,6 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { AUTH_OPTIONS } from './constants/auth.constants';
 
 @Module({})
 export class AuthModule {
@@ -14,7 +15,14 @@ export class AuthModule {
           signOptions: { expiresIn: '7d' },
         }),
       ],
-      providers: [AuthService, JwtStrategy],
+      providers: [
+        {
+          provide: AUTH_OPTIONS,
+          useValue: options,
+        },
+        AuthService,
+        JwtStrategy,
+      ],
       exports: [AuthService],
     };
   }

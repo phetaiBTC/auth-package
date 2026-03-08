@@ -5,4 +5,5 @@ export declare class AuthService {
     constructor(jwtService: JwtService);
     signToken(payload: JwtPayload): string;
     verifyToken(token: string): any;
+    generateToken(payload: any): string;
 }
