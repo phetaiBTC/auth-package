@@ -8,17 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PermissionGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const public_decorator_1 = require("../decorator/public.decorator");
+const auth_constants_1 = require("../constants/auth.constants");
 let PermissionGuard = class PermissionGuard {
     reflector;
-    constructor(reflector) {
+    permissionService;
+    constructor(reflector, permissionService) {
         this.reflector = reflector;
+        this.permissionService = permissionService;
     }
-    canActivate(context) {
+    async canActivate(context) {
         const isPublic = this.reflector.getAllAndOverride(public_decorator_1.IS_PUBLIC_KEY, [
             context.getHandler(),
             context.getClass(),
@@ -33,12 +39,14 @@ let PermissionGuard = class PermissionGuard {
             .name.replace('Controller', '')
             .toLowerCase();
         const permissionKey = `${controllerName}-${handlerName}`;
-        return user?.permissions?.includes(permissionKey);
+        const permissions = await this.permissionService.getPermissions(user.sub);
+        return permissions.includes(permissionKey);
     }
 };
 exports.PermissionGuard = PermissionGuard;
 exports.PermissionGuard = PermissionGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [core_1.Reflector])
+    __param(1, (0, common_1.Inject)(auth_constants_1.PERMISSION_SERVICE)),
+    __metadata("design:paramtypes", [core_1.Reflector, Object])
 ], PermissionGuard);
 //# sourceMappingURL=permission.guard.js.map

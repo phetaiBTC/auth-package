@@ -15,7 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./auth/auth.module"), exports);
-__exportStar(require("./auth/auth.service"), exports);
+__exportStar(require("./auth/serive/auth.service"), exports);
 __exportStar(require("./auth/guard/auth.guard"), exports);
 __exportStar(require("./auth/decorator/auth.decorator"), exports);
 __exportStar(require("./auth/decorator/public.decorator"), exports);

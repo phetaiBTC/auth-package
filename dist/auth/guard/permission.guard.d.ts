@@ -1,7 +1,9 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { type PermissionService } from '../interfaces/permission.interface';
 export declare class PermissionGuard implements CanActivate {
     private reflector;
-    constructor(reflector: Reflector);
-    canActivate(context: ExecutionContext): boolean;
+    private permissionService;
+    constructor(reflector: Reflector, permissionService: PermissionService);
+    canActivate(context: ExecutionContext): Promise<boolean>;
 }

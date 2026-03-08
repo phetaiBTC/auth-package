@@ -1,12 +1,16 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { DynamicModule, Module, Type } from '@nestjs/common';
+import { AuthService } from './serive/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategy/jwt.strategy';
-import { AUTH_OPTIONS } from './constants/auth.constants';
+import { AUTH_OPTIONS, PERMISSION_SERVICE } from './constants/auth.constants';
+import { PermissionService } from './interfaces/permission.interface';
 
 @Module({})
 export class AuthModule {
-  static forRoot(options: { secret: string }): DynamicModule {
+  static forRoot(options: {
+    secret: string;
+    permissionService: Type<PermissionService>;
+  }): DynamicModule {
     return {
       module: AuthModule,
       imports: [
@@ -19,6 +23,10 @@ export class AuthModule {
         {
           provide: AUTH_OPTIONS,
           useValue: options,
+        },
+        {
+          provide: PERMISSION_SERVICE,
+          useClass: options.permissionService,
         },
         AuthService,
         JwtStrategy,

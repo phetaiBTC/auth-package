@@ -9,7 +9,7 @@ var AuthModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
+const auth_service_1 = require("./serive/auth.service");
 const jwt_1 = require("@nestjs/jwt");
 const jwt_strategy_1 = require("./strategy/jwt.strategy");
 const auth_constants_1 = require("./constants/auth.constants");
@@ -27,6 +27,10 @@ let AuthModule = AuthModule_1 = class AuthModule {
                 {
                     provide: auth_constants_1.AUTH_OPTIONS,
                     useValue: options,
+                },
+                {
+                    provide: auth_constants_1.PERMISSION_SERVICE,
+                    useClass: options.permissionService,
                 },
                 auth_service_1.AuthService,
                 jwt_strategy_1.JwtStrategy,

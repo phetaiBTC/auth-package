@@ -1,5 +1,5 @@
 export * from './auth/auth.module'
-export * from './auth/auth.service'
+export * from './auth/serive/auth.service'
 export * from './auth/guard/auth.guard'
 export * from './auth/decorator/auth.decorator'
 export * from './auth/decorator/public.decorator'
