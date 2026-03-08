@@ -1,14 +1,14 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "**/*.spec.ts"],
   "compilerOptions": {
     "declaration": true,
     "outDir": "./dist",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ES2022"
+    "target": "ES2022",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
+  "exclude": ["node_modules", "test", "dist", "**/*.spec.ts"],
   "include": ["src/**/*"]
 }
