@@ -35,7 +35,9 @@ export class PermissionGuard implements CanActivate {
     const permissionKey = `${controllerName}-${handlerName}`;
 
     // return user?.permissions?.includes(permissionKey);
-    const permissions = await this.permissionService.getPermissions(user.sub);
+    const { permissions } = await this.permissionService.getPermissions(
+      user.sub,
+    );
     return permissions.includes(permissionKey);
   }
 }
