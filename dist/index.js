@@ -19,4 +19,6 @@ __exportStar(require("./auth/auth.service"), exports);
 __exportStar(require("./auth/guard/auth.guard"), exports);
 __exportStar(require("./auth/decorator/auth.decorator"), exports);
 __exportStar(require("./auth/decorator/public.decorator"), exports);
+__exportStar(require("./auth/guard/permission.guard"), exports);
+__exportStar(require("./auth/seed/permission.seed"), exports);
 //# sourceMappingURL=index.js.map
