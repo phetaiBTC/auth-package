@@ -40,7 +40,7 @@ export class PermissionGuard implements CanActivate {
       user.sub,
     );
     if (!permissions.includes(permissionKey)) {
-      throw new ForbiddenException('Permission denied');
+      throw new ForbiddenException(`You don't have access to ${permissionKey}`);
     }
     return true;
   }

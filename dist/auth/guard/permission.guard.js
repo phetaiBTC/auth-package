@@ -41,7 +41,7 @@ let PermissionGuard = class PermissionGuard {
         const permissionKey = `${controllerName}-${handlerName}`;
         const { permissions } = await this.permissionService.getPermissions(user.sub);
         if (!permissions.includes(permissionKey)) {
-            throw new common_1.ForbiddenException('Permission denied');
+            throw new common_1.ForbiddenException(`You don't have access to ${permissionKey}`);
         }
         return true;
     }
