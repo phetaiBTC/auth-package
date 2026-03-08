@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.generatePermissions = generatePermissions;
+exports.importControllers = importControllers;
 const public_decorator_1 = require("../decorator/public.decorator");
 const path_1 = require("path");
 const fs_1 = require("fs");
