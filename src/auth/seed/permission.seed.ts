@@ -14,7 +14,7 @@ function getAllMethods(controller: any) {
 }
 
 // generate permissions จาก controller
-function generatePermissions(controller: any): { code: string }[] {
+export function generatePermissions(controller: any): { code: string }[] {
   const methods = getAllMethods(controller);
   const controllerName = controller.name
     .replace('Controller', '')
@@ -33,7 +33,7 @@ function generatePermissions(controller: any): { code: string }[] {
 }
 
 // auto-import controllers จาก folder
-function importControllers(folderPath: string): any[] {
+export function importControllers(folderPath: string): any[] {
   const controllers: any[] = [];
 
   const files = readdirSync(folderPath);
