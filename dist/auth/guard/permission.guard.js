@@ -39,7 +39,7 @@ let PermissionGuard = class PermissionGuard {
             .name.replace('Controller', '')
             .toLowerCase();
         const permissionKey = `${controllerName}-${handlerName}`;
-        const permissions = await this.permissionService.getPermissions(user.sub);
+        const { permissions } = await this.permissionService.getPermissions(user.sub);
         return permissions.includes(permissionKey);
     }
 };
