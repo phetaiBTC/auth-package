@@ -16,6 +16,7 @@ exports.PermissionGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const public_decorator_1 = require("../decorator/public.decorator");
+const permission_decorator_1 = require("../decorator/permission.decorator");
 const auth_constants_1 = require("../constants/auth.constants");
 let PermissionGuard = class PermissionGuard {
     reflector;
@@ -31,14 +32,11 @@ let PermissionGuard = class PermissionGuard {
         ]);
         if (isPublic)
             return true;
+        const permissionKey = this.reflector.getAllAndOverride(permission_decorator_1.PERMISSION_KEY, [context.getHandler(), context.getClass()]);
+        if (!permissionKey)
+            return true;
         const request = context.switchToHttp().getRequest();
         const user = request.user;
-        const handlerName = context.getHandler().name;
-        const controllerName = context
-            .getClass()
-            .name.replace('Controller', '')
-            .toLowerCase();
-        const permissionKey = `${controllerName}-${handlerName}`;
         const { permissions } = await this.permissionService.getPermissions(user.sub);
         if (!permissions.includes(permissionKey)) {
             throw new common_1.ForbiddenException(`You don't have access to ${permissionKey}`);

@@ -19,6 +19,7 @@ __exportStar(require("./auth/serive/auth.service"), exports);
 __exportStar(require("./auth/guard/auth.guard"), exports);
 __exportStar(require("./auth/decorator/auth.decorator"), exports);
 __exportStar(require("./auth/decorator/public.decorator"), exports);
+__exportStar(require("./auth/decorator/permission.decorator"), exports);
 __exportStar(require("./auth/guard/permission.guard"), exports);
 __exportStar(require("./auth/seed/permission.seed"), exports);
 __exportStar(require("./auth/interfaces/jwt-payload.interface"), exports);

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generatePermissions = generatePermissions;
 exports.importControllers = importControllers;
-const public_decorator_1 = require("../decorator/public.decorator");
+const permission_decorator_1 = require("../decorator/permission.decorator");
 const path_1 = require("path");
 const fs_1 = require("fs");
 function getAllMethods(controller) {
@@ -16,15 +16,12 @@ function getAllMethods(controller) {
 }
 function generatePermissions(controller) {
     const methods = getAllMethods(controller);
-    const controllerName = controller.name
-        .replace('Controller', '')
-        .toLowerCase();
     return methods.reduce((acc, methodName) => {
         const proto = controller.prototype;
         const method = proto[methodName] ?? Object.getPrototypeOf(proto)[methodName];
-        const isPublic = Reflect.getMetadata(public_decorator_1.IS_PUBLIC_KEY, method);
-        if (!isPublic) {
-            acc.push({ code: `${controllerName}-${methodName}` });
+        const permissionKey = Reflect.getMetadata(permission_decorator_1.PERMISSION_KEY, method);
+        if (permissionKey) {
+            acc.push({ code: permissionKey });
         }
         return acc;
     }, []);
