@@ -1,4 +1,4 @@
-import { IS_PUBLIC_KEY } from "../decorator/public.decorator";
+import { PERMISSION_KEY } from '../decorator/permission.decorator';
 import { join } from 'path';
 import { readdirSync, statSync } from 'fs';
 function getAllMethods(controller: any) {
@@ -13,20 +13,20 @@ function getAllMethods(controller: any) {
   return Array.from(new Set(methods)).filter((m) => m !== 'constructor');
 }
 
-// generate permissions จาก controller
+// generate permissions จาก @Permission() ที่ติดไว้บน method ของ controller
 export function generatePermissions(controller: any): { code: string }[] {
   const methods = getAllMethods(controller);
-  const controllerName = controller.name
-    .replace('Controller', '')
-    .toLowerCase();
 
   return methods.reduce<{ code: string }[]>((acc, methodName) => {
     const proto = controller.prototype;
     const method =
       proto[methodName] ?? Object.getPrototypeOf(proto)[methodName];
-    const isPublic = Reflect.getMetadata(IS_PUBLIC_KEY, method);
-    if (!isPublic) {
-      acc.push({ code: `${controllerName}-${methodName}` });
+    const permissionKey: string | undefined = Reflect.getMetadata(
+      PERMISSION_KEY,
+      method,
+    );
+    if (permissionKey) {
+      acc.push({ code: permissionKey });
     }
     return acc;
   }, []);
